@@ -1,0 +1,28 @@
+/*
+    bfeffects.css
+
+    Massey University
+    158.258 Lab 5
+    (c) 2018 Michael Emery
+*/
+
+.gradient_effect {
+    background-image: linear-gradient(red, yellow, blue);
+}
+
+.text_shadow {
+    text-shadow: 2px 2px #ff0000;
+}
+
+.box_shadow {
+    box-shadow: 10px 10px 8px #888888;
+}
+
+img {
+    opacity: 0.6;
+}
+
+img:hover {
+    opacity: 1;
+    transform: rotate(-5deg);
+}
