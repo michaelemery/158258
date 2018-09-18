@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<!-- 
+    158238 Lab 8
+    Canvas
+    (c) 2018 Michael Emery
+-->
+
+<html lang="en">
+<head>
+    <title>Canvas</title>
+    <meta name="author" content="Michael Emery">
+    <meta name="description" content="158258 Lab 8">
+    <meta name="keywords" content="canvas">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="">
+    <script src=""></script>
+</head>
+
+<body>
+    <h1>My Canvas</h1>
+    <canvas id="myCanvas" width="600" height="400"></canvas>
+    <p>Canvas is above this text.</p>
+
+    <script>
+        window.onload = draw;
+        function draw() {
+            var canvas = document.getElementById('myCanvas');
+            if (canvas.getContext) {
+                var ctx = canvas.getContext('2d');
+                ctx.fillStyle = "#E01B6A";
+                ctx.fillRect(100, 100, 600, 400);
+                ctx.fillStyle = "#F7AF05";
+                ctx.fillRect(0, 200, 500, 100);
+            }
+        }
+    </script>
+</body>
+</html>

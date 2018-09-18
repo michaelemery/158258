@@ -8,7 +8,7 @@
 
 <html lang="en">
 <head>
-    <title>Static Map</title>
+    <title>Static Map (3)</title>
     <meta name="author" content="Michael Emery">
     <meta name="description" content="158258 Lab 8">
     <meta name="keywords" content="map">
@@ -18,10 +18,33 @@
 </head>
 
 <body>
+    <input type="text" name="lat" id="latId"> lat<br>
+    <input type="text" name="lon" id="lonId"> lon<br><br>
+    <button onclick="displayStaticMap(document.getElementById('latId').value, 
+            document.getElementById('lonId').value, 'mapImg')">Show Map</button>
+    <button onclick="saveMap([document.getElementById('latId').value, 
+    document.getElementById('lonId').value])">Save Map</button><br>
     <button onclick="getLocation()">Show Map Centered on Me</button><br>
     <p id='mapImg'>PUT MAP HERE</p>
+    <h4>Saved Map Coordinates:</h4>
+    <p id="mapList">Empty</p>
 
     <script>
+        savedMapCoordinates = [];
+
+        function saveMap(latlon) {
+            savedMapCoordinates.push(latlon);
+            document.getElementById("mapList").innerHTML = savedMapCoordinates;
+        }
+
+        function displayStaticMap(lat, lon, element_ID) {
+            var latlon = lat + "," + lon;
+            var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="+latlon;
+            img_url += "&zoom=14&size=800x600&sensor=false";
+            var mapID = document.getElementById(element_ID);
+            mapID.innerHTML = "<img src='"+img_url+"'>";
+        }
+
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.watchPosition(showPosition); 

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<!-- 
+    158238 Lab 8
+    Static Map
+    (c) 2018 Michael Emery
+-->
+
+<html lang="en">
+<head>
+    <title>Static Map (4)</title>
+    <meta name="author" content="Michael Emery">
+    <meta name="description" content="158258 Lab 8">
+    <meta name="keywords" content="map">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="">
+    <script src=""></script>
+</head>
+
+<body>
+    <input type="text" name="lat" id="latId"> lat<br>
+    <input type="text" name="lon" id="lonId"> lon<br><br>
+    <button onclick="displayStaticMap(document.getElementById('latId').value, 
+            document.getElementById('lonId').value, 'mapImg')">Show Map</button>
+    <button onclick="saveMap([document.getElementById('latId').value, 
+    document.getElementById('lonId').value])">Save Map</button><br>
+    <button onclick="getLocation()">Show Map Centered on Me</button><br>
+    <p id='mapImg'>PUT MAP HERE</p>
+    <h4>Saved Map Coordinates:</h4>
+    <p id="mapList">Empty</p>
+    <p id="getTest">getTest</p>
+    <p id="getCoordintatedListTest">getCoordintatedListTest</p>
+
+    <script>
+
+        var mapMgr = new MapMgr([]);
+
+        // Explicit Tests
+        mapMgr.add(10,100);
+        mapMgr.add(20,200);
+        mapMgr.add(30,300);
+        document.getElementById('getTest').innerHTML = mapMgr.get(1);
+        document.getElementById('getCoordintatedListTest').innerHTML = mapMgr.getCoordintatedList();
+
+        function MapMgr(saveList) {
+            this.saveList = saveList;
+            this.add = function(lat, lon) {
+                saveList.push([lat, lon]);
+            } 
+            this.get = function(index) {
+                if (this.saveList[index]) {
+                    return this.saveList[index];
+                } else {
+                    return null;
+                };
+            }
+            this.getCoordintatedList = function() {
+                var result = "";
+                for(item in this.saveList) {
+                    result += this.saveList[item] + "<br>";
+                }
+                return result;
+            }
+        };
+
+        function saveMap(latlon) {
+            savedMapCoordinates.push(latlon);
+            document.getElementById("mapList").innerHTML = savedMapCoordinates;
+        }
+
+        function displayStaticMap(lat, lon, element_ID) {
+            var latlon = lat + "," + lon;
+            var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="+latlon;
+            img_url += "&zoom=14&size=800x600&sensor=false";
+            var mapID = document.getElementById(element_ID);
+            mapID.innerHTML = "<img src='"+img_url+"'>";
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.watchPosition(showPosition); 
+            }
+            else {
+                x.innerHTML = "Geolocation is not supported";
+            }
+        }
+
+        function showPosition(position) {
+            var latlon = position.coords.latitude + "," + position.coords.longitude;
+            var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="+latlon;
+            img_url += "&zoom=14&size=800x600&sensor=false";
+            var mapID = document.getElementById("mapImg");
+            mapID.innerHTML = "<img src='"+img_url+"'>";
+        }
+    </script>
+</body>
+</html>

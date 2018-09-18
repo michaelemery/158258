@@ -8,7 +8,7 @@
 
 <html lang="en">
 <head>
-    <title>Static Map</title>
+    <title>Static Map (1)</title>
     <meta name="author" content="Michael Emery">
     <meta name="description" content="158258 Lab 8">
     <meta name="keywords" content="map">
@@ -22,6 +22,14 @@
     <p id='mapImg'>PUT MAP HERE</p>
 
     <script>
+        function displayStaticMap(lat, lon, element_ID) {
+            var latlon = lat + "," + lon;
+            var img_url = "http://maps.googleapis.com/maps/api/staticmap?center=" + latlon;
+            img_url += "&zoom=14&size=800x600&sensor=false";
+            var mapID = document.getElementById(element_ID);
+            mapID.innerHTML = "<img src='"+img_url+"'>";
+        }
+
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.watchPosition(showPosition); 
@@ -33,7 +41,7 @@
 
         function showPosition(position) {
             var latlon = position.coords.latitude + "," + position.coords.longitude;
-            var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="+latlon;
+            var img_url = "http://maps.googleapis.com/maps/api/staticmap?center=" + latlon;
             img_url += "&zoom=14&size=800x600&sensor=false";
             var mapID = document.getElementById("mapImg");
             mapID.innerHTML = "<img src='"+img_url+"'>";
