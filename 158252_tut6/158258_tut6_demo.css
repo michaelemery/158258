@@ -8,25 +8,41 @@ h1 {
 
 nav { 
     border: 5px solid green; 
+    width: 32%;
+    float: left;
 }
 
 ul { 
     border: 1px solid green; 
+    list-style-type: none;
+    overflow: auto;
+    padding: 0px;
+    margin: 0px;
 }
 
 li { 
     border: 1px dashed green; 
+    display: block;
+
+    text-align: center;
 }
 
 main { 
     border: 3px solid blue; 
+    overflow: auto;
 }
 
 main section {
     border: 1px dashed blue; 
+    display: block;
+    float: left;
+    width: 74%;
 }
 
 main aside {
     border: 1px dashed blue; 
     color: blue;
+    display: block;
+    float: right;
+    width: 25%;
 }

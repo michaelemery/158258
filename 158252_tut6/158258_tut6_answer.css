@@ -36,6 +36,7 @@ main section {
     display: block;
     float: left;
     width: 74%;
+    overflow: auto;
 }
 
 main aside {

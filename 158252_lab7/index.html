@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<!--
+    Massey Unversity
+    158258 Lab 7
+    (c) 2018 Michael Emery
+-->
+
+<html lang="en">
+    <head>
+        <title>158288 Lab 7</title>
+        <meta charset="UTF-8">
+        <meta name="author" content="Michael Emery">
+        <meta name="description" content="Javascript Lab">
+        <meta name="keyuwords" content="158258,lab,javascript">
+        <link rel="styleseet" href="">
+        <script src="script.js"></script>
+    </head>
+
+    <body>
+        <h1>158258 Lab 7</h1>
+        <h2>Javascript</h2>
+        <p>This is html.</p>
+        <script>
+            document.write("This is a script.<br><br>");
+            // function popup(x) {
+            //     alert(x)
+            // }
+        </script>       
+        <button type="button" onclick="popup('Button 1 pressed')">Button 1</button>
+        <button type="button" onclick="popup('Button 2 pressed')">Button 2</button>
+        <br><br>
+        Text: <input type="text" name="reply" id="reply">
+        <input type="submit" value="Submit" onclick="display(document.getElementById('reply').value)">
+        <p id="counter">0</p>
+        <p id="output"></p>
+        <script>
+            v="";
+            for (i=1; i<=10; i++) {
+                v += " " + i;
+            }
+            document.getElementById("output").innerHTML = v;
+        </script>
+        Upper: <input type="text" name="upperlimit" id="upperlimit">
+        <input type="submit" value="Submit" onclick="writeNumbers(document.getElementById('upperlimit').value)">
+        <br><br>
+        Array Input: <input type="text" name="arrayin" id="arrayin">
+        <input type="submit" value="Add" onclick="myArray.push(document.getElementById('arrayin').value)">
+        <input type="submit" value="Show" onclick="document.getElementById('arrayout').innerHTML=myArray">
+        <input type="submit" value="Delete-Last" onclick="myArray.pop()">
+        <input type="submit" value="Clear" onclick="myArray=[]">
+        <br>
+        <h3 id="arrayout"></h3>
+    </body>
+</html>

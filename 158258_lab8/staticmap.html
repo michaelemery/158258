@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<!-- 
+    158238 Lab 8
+    Static Map
+    (c) 2018 Michael Emery
+-->
+
+<html lang="en">
+<head>
+    <title>Static Map</title>
+    <meta name="author" content="Michael Emery">
+    <meta name="description" content="158258 Lab 8">
+    <meta name="keywords" content="map">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="">
+    <script src=""></script>
+</head>
+
+<body>
+    <input type='button' value="Show map centered on ME" onclick="getLocation()">
+    <p id='mapImg'> PUT MAP HERE</p>
+
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.watchPosition(showPosition); 
+            }
+            else {
+                x.innerHTML = "Geolocation is not supported";
+            }
+        }
+
+        function showPosition(position) {
+            var latlon = position.coords.latitude + "," + position.coords.longitude;
+            var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="+latlon;
+            img_url +=      "&zoom=14&size=800x600&sensor=false";
+            mapID = document.getElementById("mapImg")
+            mapID.innerHTML = "<img src='"+img_url+"'>";
+        }
+    </script>
+</body>
+</html>
