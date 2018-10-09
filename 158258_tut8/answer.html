@@ -39,14 +39,13 @@
             document.getElementById('staticMap').innerHTML = 
                         "<img src='" + getStaticMapURL(address) + "' alt='static map'>";
             document.getElementById('geocodeURL').innerHTML = 
-                        "<a href='" + getGeocodeURL(address) + "'>" + 
-                        getGeocodeURL(address) + "</a>";
+                        "<a href='" + getGeocodeURL(address) + "'>" + getGeocodeURL(address) + "</a>";
         }
 
         function getGeocodeURL(address) {
-            var geocodeURL = "";
-            // TO BE COMPLETED
-            // Reference: Google geocoding API
+            geocodeURL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+            geocodeURL += address
+            geocodeURL += "&key=" + apikey;
             return geocodeURL;
         }
 
@@ -68,13 +67,18 @@
         }
 
         function getStreetviewURL(address) {
-            // TO BE COMPLETED
-            // Reference: Google Streetview API
+            var streetviewURL = "https://maps.googleapis.com/maps/api/streetview?size=400x400&location=address?";
+            streetviewURL += address;
+            streetviewURL += "&fov=90&heading=235&pitch=10&";
+            streetviewURL += "key=" + apikey;
+            return streetviewURL;
         }
 
         function getStaticMapURL(address) {
-            // TO BE COMPLETED
-            // Reference: Google Static Map API
+            var staticMapURL = "https://maps.googleapis.com/maps/api/staticmap?center=";
+            staticMapURL += address;
+            staticMapURL += "&zoom=16&size=400x400&maptype=roadmap&key=" + apikey;
+            return staticMapURL;
         }
     </script>
 </body>

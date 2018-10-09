@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+    <!--
+        Check browser support for local storage 
+        (c) 2018 Michael Emery
+    -->
+
+<html>
+<head>
+    <title>Local Storage</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <button onclick="storageTest()">Run localStorage test</button>
+    <p><b>Does your browser support local storage?</b></p>
+    <p id="storeResult">Don't Know Yet</p>
+    <br>
+    <button onclick="clickCounter()">Click to increment</button>
+    <p><b>No of clicks so far:</b></p>
+    <p id="clickResult">None</p>
+    <br>
+    <button onclick="localStorage.removeItem('localStorage')">Clear 'storeResult'</button>
+    <button onclick="localStorage.removeItem('clickCount')">Clear 'clickCount'</button>
+    <button onclick="localStorage.clear()">Clear ALL local storage</button>
+
+    <script> 
+        function storageTest() {
+            result = document.getElementById("storeResult");
+
+            // basic storage syntax
+            if (typeof(Storage) !== "undefined") {
+                localStorage.setItem("localStorage", "YES"); // store a value 
+                result.innerHTML = localStorage.getItem("localStorage"); // get it back 
+                result.style.color = 'green'
+            } else {
+                result.innerHTML = "It seems not!";
+                result.style.color = 'red';
+            }
+
+            // as above but using array syntax
+            // if (typeof(Storage) !== "undefined") {
+            //     localStorage["localStorage"] = "YES"; // store a value 
+            //     r.innerHTML = localStorage["localStorage"]; // get it back 
+            //     r.style.color = 'green'
+            // } else {
+            //     r.innerHTML = "It seems not!";
+            //     r.style.color = 'red';
+            // }
+
+            // as above but using object property syntax
+            // if (typeof(Storage) !== "undefined") {
+            //     localStorage.localStorage = "YES"; // store a value 
+            //     r.innerHTML = localStorage.localStorage; // get it back 
+            //     r.style.color = 'green'
+            // } else {
+            //     r.innerHTML = "It seems not!";
+            //     r.style.color = 'red';
+            // }
+        }
+
+        function clickCounter() {
+            result = document.getElementById("clickResult");
+            
+            // using object property syntax
+            if (typeof(Storage) !== "undefined") {
+                if (localStorage.clickCount) {
+                    localStorage.clickCount = Number(localStorage.clickCount) + 1;
+                } else {
+                    localStorage.clickCount = 1;
+                }
+                result.innerHTML = localStorage.clickCount;
+                result.style.color = 'green'
+            } else {
+                result.innerHTML = "No local storage!";
+                result.style.color = 'red';
+            }
+        }
+    </script>
+</body>
+</html>
