@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<!-- 
+    158258 Tutorial 8
+    Massey University
+    (c) 2018 Michael Emery
+-->
+
+<html lang="en">
+<head>
+    <title>Map API Tester</title>
+    <meta name="author" content="Michael Emery">
+    <meta name="description" content="Tutorial 8 Task">
+    <meta name="keywords" content="tutorial,google,map,api">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="">
+    <script src=""></script>
+</head>
+
+<body>
+    <h1>Address Finder</h1>
+    <input type="text" size=50 name="address" id="address">
+    <button onclick="findAddress(document.getElementById('address').value)">Submit</button>
+
+    <p id='formattedAddress'>Formatted Address N/A</p>
+    <p id ='coords'>COORDS: [N/A, N/A]</p>
+    <p style="float:left" id='streetviewImage'>[no streetview]</p>
+    <p style="float:left" id='staticMap'>[no map]</p>
+    <p style="clear:left" id='geocodeURL'>Geocode URL N/A</p>
+
+    <script>
+        apikey = "AIzaSyCyBhv7bF7UOY-knD0iSYd-hr2Y1GvYqew";
+
+        function findAddress(address) {
+            address = address.replace(/ /g,"+");
+            displayLocationInfo(getGeocodeURL(address), 'formattedAddress', 'coords');
+            document.getElementById('streetviewImage').innerHTML = 
+                        "<img src='" + getStreetviewURL(address) + "' alt='streetview'>";
+            document.getElementById('staticMap').innerHTML = 
+                        "<img src='" + getStaticMapURL(address) + "' alt='static map'>";
+            document.getElementById('geocodeURL').innerHTML = 
+                        "<a href='" + getGeocodeURL(address) + "'>" + getGeocodeURL(address) + "</a>";
+        }
+
+        function getGeocodeURL(address) {
+            geocodeURL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+            geocodeURL += address
+            geocodeURL += "&key=" + apikey;
+            return geocodeURL;
+        }
+
+        function displayLocationInfo(geocodeURL, addressElementID, coordElementID) {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var myObj = JSON.parse(this.responseText);
+                    document.getElementById(addressElementID).innerHTML = 
+                                myObj.results[0].formatted_address;
+                    document.getElementById(coordElementID).innerHTML = 
+                                "[ lat: " +
+                                myObj.results[0].geometry.location.lat + ", lon: " +
+                                myObj.results[0].geometry.location.lng + " ]";
+                }
+            }
+            xmlhttp.open("GET", geocodeURL, true);
+            xmlhttp.send();
+        }
+
+        function getStreetviewURL(address) {
+            var streetviewURL = "https://maps.googleapis.com/maps/api/streetview?size=400x400&location=address?";
+            streetviewURL += address;
+            streetviewURL += "&fov=90&heading=235&pitch=10&";
+            streetviewURL += "key=" + apikey;
+            return streetviewURL;
+        }
+
+        function getStaticMapURL(address) {
+            var staticMapURL = "https://maps.googleapis.com/maps/api/staticmap?center=";
+            staticMapURL += address;
+            staticMapURL += "&zoom=16&size=400x400&maptype=roadmap&key=" + apikey;
+            return staticMapURL;
+        }
+    </script>
+</body>
+</html>
